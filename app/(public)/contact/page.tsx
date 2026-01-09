@@ -405,27 +405,7 @@ export default function ContactsPage() {
           </div>
         </div>
 
-        {/* Футер страницы */}
-        <footer className="mt-12 border-t border-gray-200 pt-8">
-          <div className="text-center text-gray-600">
-            <p className="mb-2">© 2018 - {new Date().getFullYear()} ООО "Ольхон-Экспресс"</p>
-            <p className="text-sm">Все права защищены. Копирование материалов запрещено.</p>
-            <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm">
-              <a href="/terms" className="text-gray-500 hover:text-gray-900">
-                Пользовательское соглашение
-              </a>
-              <a href="/privacy-policy" className="text-gray-500 hover:text-gray-900">
-                Политика конфиденциальности
-              </a>
-              <a href="/contract" className="text-gray-500 hover:text-gray-900">
-                Договор оферты
-              </a>
-              <a href="/sitemap" className="text-gray-500 hover:text-gray-900">
-                Карта сайта
-              </a>
-            </div>
-          </div>
-        </footer>
+    
       </div>
     </div>
   );

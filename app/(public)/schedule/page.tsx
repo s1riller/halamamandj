@@ -652,35 +652,6 @@ export default function SchedulePage() {
             </button>
           </div>
         </div>
-
-        {/* Футер страницы */}
-        <footer className="mt-12 border-t border-gray-200 pt-8">
-          <div className="text-center text-gray-600">
-            <p className="mb-4">
-              © 2018 - {new Date().getFullYear()} ООО "Ольхон-Экспресс" •
-              <span className="ml-2 text-sm">
-                Расписание обновлено: {new Date().toLocaleDateString("ru-RU")}
-              </span>
-            </p>
-            <div className="flex flex-wrap justify-center gap-6 text-sm">
-              <a href="/contacts" className="text-gray-500 hover:text-gray-900">
-                Контакты и адреса
-              </a>
-              <a href="/refund" className="text-gray-500 hover:text-gray-900">
-                Возврат билетов
-              </a>
-              <a href="/agreement" className="text-gray-500 hover:text-gray-900">
-                Договор оферты
-              </a>
-              <a href="/privacy" className="text-gray-500 hover:text-gray-900">
-                Политика конфиденциальности
-              </a>
-            </div>
-            <div className="mt-4 text-xs text-gray-500">
-              * Расписание может меняться в зависимости от погодных условий и дорожной обстановки.
-            </div>
-          </div>
-        </footer>
       </div>
     </div>
   );

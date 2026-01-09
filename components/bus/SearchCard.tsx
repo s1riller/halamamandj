@@ -34,7 +34,7 @@ export default function SearchCard() {
   };
 
   return (
-    <section className="animate-fadeInUp space-y-6 rounded-3xl glass border-2 border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl">
+    <section className="animate-fadeInUp pb-36 space-y-6 rounded-3xl glass border-2 border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-xl">
       {/* Header */}
       <div className="flex items-center gap-3">
         <span className="text-2xl">🎫</span>

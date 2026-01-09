@@ -729,30 +729,6 @@ export default function Home() {
                 </button>
               </div>
             </div>
-
-            {/* Футер главной страницы */}
-            <footer className="mt-12 border-t border-gray-200 pt-8">
-              <div className="text-center text-gray-600">
-                <p className="mb-4">© 2018 - {new Date().getFullYear()} ООО "Ольхон-Экспресс"</p>
-                <div className="flex flex-wrap justify-center gap-6 text-sm">
-                  <a href="/about" className="text-gray-500 hover:text-gray-900">
-                    О компании
-                  </a>
-                  <a href="/reviews" className="text-gray-500 hover:text-gray-900">
-                    Отзывы
-                  </a>
-                  <a href="/partners" className="text-gray-500 hover:text-gray-900">
-                    Партнерам
-                  </a>
-                  <a href="/contacts" className="text-gray-500 hover:text-gray-900">
-                    Контакты
-                  </a>
-                  <a href="/privacy" className="text-gray-500 hover:text-gray-900">
-                    Политика конфиденциальности
-                  </a>
-                </div>
-              </div>
-            </footer>
           </main>
         </div>
       </div>

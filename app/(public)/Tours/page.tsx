@@ -492,31 +492,7 @@ export default function ToursPage() {
           />
         </div>
 
-        {/* Футер */}
-        <footer className="border-t border-gray-200 pt-8">
-          <div className="text-center text-gray-600">
-            <p className="mb-4">Есть вопросы по выбору экскурсии? Звоните!</p>
-            <div className="mb-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <a
-                href="tel:+79016401010"
-                className="text-xl font-bold text-blue-600 hover:text-blue-800"
-              >
-                +7 (901) 640-10-10
-              </a>
-              <span className="text-gray-400">|</span>
-              <a
-                href="mailto:olkhon-express@mail.ru"
-                className="text-lg text-gray-700 hover:text-gray-900"
-              >
-                olkhon-express@mail.ru
-              </a>
-            </div>
-            <p className="text-sm text-gray-500">
-              © 2018 - {new Date().getFullYear()} ООО "Ольхон-Экспресс". Все экскурсии проводятся с
-              соблюдением природоохранного законодательства.
-            </p>
-          </div>
-        </footer>
+      
       </div>
     </div>
   );

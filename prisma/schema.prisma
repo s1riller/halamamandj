@@ -1,14 +1,201 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
+
+// ============================================================================
+// ПОЛЬЗОВАТЕЛИ И АВТОРИЗАЦИЯ
+// ============================================================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String?
+  name      String
+  password  String   // Хранится хешированный пароль
+  role      String   @default("user") // "user", "admin", "driver"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  bookings     Booking[]
+  reviews      Review[]
+  profilePhoto String?
+
+  @@map("users")
+}
+
+// ============================================================================
+// РЕЙСЫ И РАСПИСАНИЕ
+// ============================================================================
+
+model Schedule {
+  id              String   @id @default(cuid())
+  from            String   // "Иркутск"
+  to              String   // "Ольхон"
+  departureTime   DateTime
+  arrivalTime     DateTime
+  duration        Int      // в минутах
+  price           Int      // в копейках (10000 = 100₽)
+  availableSeats  Int      // Сколько мест свободно
+  totalSeats      Int      // Всего мест в автобусе
+  busType         String   // "comfort", "vip", "standard"
+  driver          String?
+  notes           String?
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  bookings Booking[]
+  seats    Seat[]
+
+  @@map("schedules")
+  @@index([from, to, departureTime])
+}
+
+model Seat {
+  id         String   @id @default(cuid())
+  scheduleId String
+  number     Int      // 1-45 (номер места)
+  isBooked   Boolean  @default(false)
+  bookedBy   String? // userId кто забронировал
+  createdAt  DateTime @default(now())
+
+  // Relations
+  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@unique([scheduleId, number])
+  @@map("seats")
+}
+
+// ============================================================================
+// БРОНИРОВАНИЯ
+// ============================================================================
+
+model Booking {
+  id         String   @id @default(cuid())
+  userId     String
+  scheduleId String
+  seatNumber Int
+  status     String   @default("pending") // "pending", "confirmed", "cancelled", "completed"
+  totalPrice Int      // в копейках
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  schedule Schedule @relation(fields: [scheduleId], references: [id], onDelete: Cascade)
+
+  @@unique([scheduleId, seatNumber])
+  @@map("bookings")
+  @@index([userId, status])
+}
+
+// ============================================================================
+// ЭКСКУРСИИ
+// ============================================================================
+
+model Tour {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  location    String   // "Ольхон", "Листвянка", etc.
+  price       Int      // в копейках
+  duration    Int      // в часах
+  maxPeople   Int
+  imageUrl    String?
+  rating      Float    @default(0)
+  reviews     Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  tourBookings TourBooking[]
+
+  @@map("tours")
+  @@index([location])
+}
+
+model TourBooking {
+  id        String   @id @default(cuid())
+  userId    String
+  tourId    String
+  people    Int
+  totalPrice Int
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  tour Tour @relation(fields: [tourId], references: [id], onDelete: Cascade)
+
+  @@map("tour_bookings")
+}
+
+// ============================================================================
+// ОТЗЫВЫ И РЕЙТИНГИ
+// ============================================================================
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  rating    Int      // 1-5
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+  @@index([userId, createdAt])
+}
+
+// ============================================================================
+// ПОДДЕРЖКА И КОНТАКТЫ
+// ============================================================================
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  subject   String
+  message   String
+  status    String   @default("new") // "new", "read", "replied"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contacts")
+  @@index([status, createdAt])
+}
+
+// ============================================================================
+// ПЛАТЕЖИ
+// ============================================================================
+
+model Payment {
+  id            String   @id @default(cuid())
+  bookingId     String?
+  tourBookingId String?
+  amount        Int      // в копейках
+  status        String   @default("pending") // "pending", "completed", "failed", "refunded"
+  paymentMethod String   // "card", "cash", "yandex-kassa"
+  externalId    String?  // ID платежа в системе платежей
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("payments")
+  @@index([status, createdAt])
+}
+

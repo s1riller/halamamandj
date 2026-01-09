@@ -1,105 +1,159 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface User {
   id: string;
-  name: string;
   email: string;
-  phone?: string;
-  role: "user" | "admin";
+  name: string;
+  role: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string, phone?: string) => Promise<void>;
-  logout: () => Promise<void>;
   isAuthenticated: boolean;
-  isAdmin: boolean;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (email: string, password: string, name: string) => Promise<void>;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const login = useCallback(async (email: string, password: string) => {
-    setIsLoading(true);
-    try {
-      // Mock логика авторизации
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
-      // Mock пользователь
-      const mockUser: User = {
-        id: "1",
-        name: "Иван Иванов",
-        email,
-        phone: "+7 (901) 640-40-40",
-        role: email.includes("admin") ? "admin" : "user",
-      };
-
-      setUser(mockUser);
-      localStorage.setItem("authUser", JSON.stringify(mockUser));
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  const register = useCallback(
-    async (name: string, email: string, password: string, phone?: string) => {
-      setIsLoading(true);
+  // Проверка аутентификации при загрузке
+  useEffect(() => {
+    const checkAuth = async () => {
       try {
-        // Mock логика регистрации
-        await new Promise((resolve) => setTimeout(resolve, 500));
-
-        const mockUser: User = {
-          id: Math.random().toString(36).substr(2, 9),
-          name,
-          email,
-          phone,
-          role: "user",
-        };
-
-        setUser(mockUser);
-        localStorage.setItem("authUser", JSON.stringify(mockUser));
+        // Проверяем наличие токена в localStorage
+        const token = localStorage.getItem('auth_token');
+        
+        if (token) {
+          // Здесь можно сделать запрос к API для проверки токена
+          // Для демо используем моковые данные
+          const mockUser: User = {
+            id: '1',
+            email: 'user@example.com',
+            name: 'Иван Иванов',
+            role: 'user',
+          };
+          
+          // Имитация задержки сети
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          setUser(mockUser);
+        }
+      } catch (error) {
+        console.error('Ошибка проверки аутентификации:', error);
+        localStorage.removeItem('auth_token');
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
-    },
-    []
-  );
+    };
 
-  const logout = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 300));
-      setUser(null);
-      localStorage.removeItem("authUser");
-    } finally {
-      setIsLoading(false);
-    }
+    checkAuth();
   }, []);
+
+  const login = async (email: string, password: string) => {
+    try {
+      setLoading(true);
+      
+      // Имитация запроса к API
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Проверка моковых данных
+      if (email === 'user@example.com' && password === 'password123') {
+        const mockUser: User = {
+          id: '1',
+          email,
+          name: 'Иван Иванов',
+          role: 'user',
+        };
+        
+        // Сохраняем токен (в реальном приложении токен придет с сервера)
+        localStorage.setItem('auth_token', 'mock_jwt_token');
+        setUser(mockUser);
+      } else {
+        throw new Error('Неверный email или пароль');
+      }
+    } catch (error) {
+      console.error('Ошибка входа:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      setLoading(true);
+      
+      // Имитация запроса к API
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Удаляем токен
+      localStorage.removeItem('auth_token');
+      setUser(null);
+    } catch (error) {
+      console.error('Ошибка выхода:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const register = async (email: string, password: string, name: string) => {
+    try {
+      setLoading(true);
+      
+      // Имитация запроса к API
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Создаем мокового пользователя
+      const mockUser: User = {
+        id: Date.now().toString(),
+        email,
+        name,
+        role: 'user',
+      };
+      
+      // Сохраняем токен
+      localStorage.setItem('auth_token', 'mock_jwt_token');
+      setUser(mockUser);
+    } catch (error) {
+      console.error('Ошибка регистрации:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const value: AuthContextType = {
     user,
-    isLoading,
-    login,
-    register,
-    logout,
     isAuthenticated: !!user,
-    isAdmin: user?.role === "admin" || false,
+    login,
+    logout,
+    register,
+    loading,
   };
 
+  // ВАЖНО: return должен быть на верхнем уровне функции компонента
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
   const context = useContext(AuthContext);
+  
   if (context === undefined) {
-    throw new Error("useAuth must be used within AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
+  
   return context;
 }

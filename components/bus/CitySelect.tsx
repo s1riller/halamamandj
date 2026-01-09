@@ -35,7 +35,7 @@ export default function CitySelect({
 
   return (
     <div ref={wrapperRef} className="relative">
-      <label className="mb-1 block text-sm font-medium text-black">{label}</label>
+      <label className="mb-1 block text-sm font-medium text-black z-10">{label}</label>
 
       <input
         type="text"

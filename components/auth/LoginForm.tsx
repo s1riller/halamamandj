@@ -8,17 +8,17 @@ import { useAuth } from "@/contexts/AuthContext";
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [localError, setLocalError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, error: authError } = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setLocalError("");
 
     if (!email || !password) {
-      setError("Пожалуйста, заполните все поля");
+      setLocalError("Пожалуйста, заполните все поля");
       return;
     }
 
@@ -26,14 +26,16 @@ export default function LoginForm() {
       await login(email, password);
       router.push("/profile");
     } catch (err) {
-      setError("Ошибка при входе. Попробуйте снова.");
+      // Ошибка уже обработана в AuthContext
     }
   };
 
+  const displayError = localError || authError;
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">{error}</div>
+      {displayError && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">{displayError}</div>
       )}
 
       <div>
