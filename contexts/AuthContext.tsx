@@ -5,7 +5,7 @@ import React, {
   useContext, 
   useState, 
   useEffect, 
-  typе ReactNode 
+  type ReactNode  
 } from 'react';
 
 interface User {
