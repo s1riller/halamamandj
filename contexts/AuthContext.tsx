@@ -132,12 +132,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   };
 
   const value: AuthContextType = {
-    user,
-    isAuthenticated: !!user,
-    login,
-    logout,
-    register,
-    loading,
+      user,
+      isAuthenticated: !!user,
+      login,
+      logout,
+      register,
+      loading,
+      isLoading: false
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
