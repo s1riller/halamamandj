@@ -1,5 +1,3 @@
-// app/schedule/[id]/page.tsx
-"use client";
 
 import Link from "next/link";
 import { use } from "react";
