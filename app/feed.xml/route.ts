@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Добавьте эту строку для статического экспорта
+export const dynamic = 'force-static';
+
 export async function GET(request: NextRequest) {
-  const baseUrl = 'https://webkademy.ru';
+  const baseUrl = 'https://olkhontravel.ru';
 
   const rssContent = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Webkademy Travel - Блог о путешествиях</title>
+    <title>olkhontravel Travel - Блог о путешествиях</title>
     <link>${baseUrl}</link>
     <description>Советы и новости о путешествиях на Байкал</description>
     <language>ru</language>
