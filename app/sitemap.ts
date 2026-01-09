@@ -1,5 +1,6 @@
 // app/sitemap.ts
-import { MetadataRoute } from 'next'
+// app/sitemap.ts
+import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://olkhonexpress.ru' // Используйте ваш домен
