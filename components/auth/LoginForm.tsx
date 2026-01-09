@@ -30,7 +30,7 @@ export default function LoginForm() {
     }
   };
 
-  const displayError = localError || authError;
+  const displayError = localError;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
