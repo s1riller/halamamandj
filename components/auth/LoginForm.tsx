@@ -10,7 +10,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [localError, setLocalError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isLoading, error: authError } = useAuth();
+  const { login, isLoading} = useAuth();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
