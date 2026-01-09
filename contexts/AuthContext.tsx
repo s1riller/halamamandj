@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { 
+  createContext, 
+  useContext, 
+  useState, 
+  useEffect, 
+  ReactNode 
+} from 'react';
 
 interface User {
   id: string;
@@ -15,8 +21,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (email: string, password: string, name: string) => Promise<void>;
-loading: boolean;
-  isLoading: boolean;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,21 +38,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // Проверяем наличие токена в localStorage
         const token = localStorage.getItem('auth_token');
         
         if (token) {
-          // Здесь можно сделать запрос к API для проверки токена
-          // Для демо используем моковые данные
+          // Моковые данные для демо
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
           const mockUser: User = {
             id: '1',
             email: 'user@example.com',
             name: 'Иван Иванов',
             role: 'user',
           };
-          
-          // Имитация задержки сети
-          await new Promise(resolve => setTimeout(resolve, 500));
           
           setUser(mockUser);
         }
@@ -66,10 +68,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       setLoading(true);
       
-      // Имитация запроса к API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Проверка моковых данных
       if (email === 'user@example.com' && password === 'password123') {
         const mockUser: User = {
           id: '1',
@@ -78,7 +78,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
           role: 'user',
         };
         
-        // Сохраняем токен (в реальном приложении токен придет с сервера)
         localStorage.setItem('auth_token', 'mock_jwt_token');
         setUser(mockUser);
       } else {
@@ -96,10 +95,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       setLoading(true);
       
-      // Имитация запроса к API
       await new Promise(resolve => setTimeout(resolve, 500));
       
-      // Удаляем токен
       localStorage.removeItem('auth_token');
       setUser(null);
     } catch (error) {
@@ -114,10 +111,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       setLoading(true);
       
-      // Имитация запроса к API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Создаем мокового пользователя
       const mockUser: User = {
         id: Date.now().toString(),
         email,
@@ -125,7 +120,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         role: 'user',
       };
       
-      // Сохраняем токен
       localStorage.setItem('auth_token', 'mock_jwt_token');
       setUser(mockUser);
     } catch (error) {
@@ -145,7 +139,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
     loading,
   };
 
-  // ВАЖНО: return должен быть на верхнем уровне функции компонента
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
