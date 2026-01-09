@@ -47,7 +47,7 @@ export default function RegisterForm() {
     }
 
     try {
-      await register(formData.name, formData.email, formData.password, formData.phone);
+      await register(formData.name, formData.email, formData.password);
       router.push("/profile");
     } catch (err) {
       setError("Ошибка при регистрации. Попробуйте снова.");
