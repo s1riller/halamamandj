@@ -24,7 +24,7 @@ export function Header() {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold bg-gradient-to-r from-cyan-600 to-blue-600 bg-clip-text text-transparent">
-                Webkademy
+                OlkhonExpress
               </h1>
               <p className="text-xs text-gray-500">Travel Platform</p>
             </div>

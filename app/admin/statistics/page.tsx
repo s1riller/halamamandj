@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Статистика | Webkademy Travel",
+  title: "Статистика | Olkhon Travel",
   description: "Аналитика и статистика сайта",
 };
 

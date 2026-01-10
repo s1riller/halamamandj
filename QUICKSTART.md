@@ -5,7 +5,7 @@
 ### 1️⃣ Запуск (30 сек)
 
 ```bash
-cd "c:\Users\Savely\Documents\Visual Studio 2022\travel\webkademy"
+cd "c:\Users\Savely\Documents\Visual Studio 2022\travel\OlkhonExporess"
 npm run dev
 ```
 

@@ -3,8 +3,8 @@ import Link from "next/link";
 import RegisterForm from "@/components/auth/RegisterForm";
 
 export const metadata: Metadata = {
-  title: "Регистрация | Webkademy Travel",
-  description: "Создайте аккаунт на сайте Webkademy Travel",
+  title: "Регистрация | OlkhonExporess Travel",
+  description: "Создайте аккаунт на сайте OlkhonExporess Travel",
 };
 
 export default function RegisterPage() {
