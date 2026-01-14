@@ -1,6 +1,5 @@
 import Navbar from "@/components/ui/Navbar"
 import HeroSection from "@/components/ui/HeroSection"
-import ToursSection from "@/components/ui/ToursSection"
 // import Footer from "@/components/Footer"
 import BuryatPatternBackground from "@/components/ui/BuryatPatternBackground";
 import Advantages from "@/components/ui/Advantages";

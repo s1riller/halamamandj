@@ -2,13 +2,13 @@ export default function Footer() {
     return (
 
 
-        <footer class="bg-neutral-primary-soft">
+        <footer className="bg-neutral-primary-soft">
 
-            <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-                <div class="md:flex md:justify-between">
-                    <div class="mb-6 md:mb-0">
-                        <a href="https://flowbite.com/" class="flex items-center">
-                            <span class="text-heading self-center text-2xl font-semibold whitespace-nowrap">ИП Иванов П.Г.</span>
+            <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                <div className="md:flex md:justify-between">
+                    <div className="mb-6 md:mb-0">
+                        <a href="https://flowbite.com/" className="flex items-center">
+                            <span className="text-heading self-center text-2xl font-semibold whitespace-nowrap">ИП Иванов П.Г.</span>
                         </a>
                     </div>
                     {/* Телефон - выделенное место */}
@@ -25,20 +25,20 @@ export default function Footer() {
                         </a>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                    <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
-                            <ul class="text-body font-medium">
-                                <li class="mb-4">
-                                    <a href="/" class="hover:underline">Главная</a>
+                            <ul className="text-body font-medium">
+                                <li className="mb-4">
+                                    <a href="/" className="hover:underline">Главная</a>
                                 </li>
                                 <li>
-                                    <a href="/" class="hover:underline">Проживание</a>
+                                    <a href="/" className="hover:underline">Проживание</a>
                                 </li>
                                 <li>
-                                    <a href="/" class="hover:underline">Проезд</a>
+                                    <a href="/" className="hover:underline">Проезд</a>
                                 </li>
                                 <li>
-                                    <a href="/" class="hover:underline">Контакты</a>
+                                    <a href="/" className="hover:underline">Контакты</a>
                                 </li>
                             </ul>
                         </div>
@@ -46,9 +46,9 @@ export default function Footer() {
 
                     </div>
                 </div>
-                <hr class="my-6 border-default sm:mx-auto lg:my-8" />
-                <div class="sm:flex sm:items-center sm:justify-between">
-                    <span class="text-sm text-body sm:text-center">
+                <hr className="my-6 border-default sm:mx-auto lg:my-8" />
+                <div className="sm:flex sm:items-center sm:justify-between">
+                    <span className="text-sm text-body sm:text-center">
                         Мы не используем куки и рекомендательные технологии — без них просто нормально можем работать
                     </span>
 
